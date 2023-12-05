@@ -108,9 +108,22 @@ export const ImageBox = styled.div`
     display: none;
   }
 `;
-
 export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+export const Logo = styled.div`
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 28px;
+  font-weight: 600;
 `;

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/protected-route";
+import { Img, Logo } from "./components/auth-components";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const init = async () => {
@@ -68,6 +70,10 @@ function App() {
   }, []);
   return (
     <Wrapper>
+      <Logo>
+        <Img src="/github-logo.svg" />
+        Cathub
+      </Logo>
       <GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
