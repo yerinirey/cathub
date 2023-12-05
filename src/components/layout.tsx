@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -8,18 +9,18 @@ const Wrapper = styled.div`
   justify-content: space-between;
   gap: 50px;
   height: 100%;
-  margin: 70px 0px;
+  margin-top: 70px;
   width: 100%;
-  border-top: 2px solid #24292e;
 `;
 
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 14px;
+  padding: 0 20px;
   width: 18vw;
   background-color: #181d21;
+  border-right: 2px solid #24292e;
 `;
 
 const MenuItem = styled.div`
@@ -32,7 +33,7 @@ const MenuItem = styled.div`
   padding: 30px 10px;
   border-bottom: 2px solid #24292e;
   svg {
-    width: 30px;
+    width: 40px;
     fill: white;
   }
   &.log-out {
@@ -53,10 +54,10 @@ const Links = styled(Link)`
 `;
 
 const MenuName = styled.div`
-  padding: 30px 0px;
+  padding: 40px 0px;
   width: 100%;
   text-align: center;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   border-bottom: 2px solid #24292e;
 `;
@@ -65,8 +66,29 @@ const Right = styled.div`
   border: 1px solid blue;
   width: 20vw;
 `;
+export const Toast = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  bottom: 20px;
+  left: 20px;
+  width: 220px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: #5856d6;
+  &.hidden {
+    display: none;
+  }
+  :first-child {
+    font-size: 20px;
+    font-weight: 500;
+  }
+`;
 
 export default function Layout() {
+  const [toast, setToast] = useState(false);
   const navigate = useNavigate();
   const username = auth.currentUser?.displayName
     ? auth.currentUser?.displayName
@@ -78,27 +100,20 @@ export default function Layout() {
       navigate("/login");
     }
   };
+  const onClick = () => {
+    setToast(true);
+    setTimeout(() => {
+      setToast(false);
+    }, 1500);
+  };
+
   return (
     <Wrapper>
+      <Toast className={toast ? "" : "hidden"}>
+        <p>Not Supported Yet!</p>
+      </Toast>
       <Menu>
         <MenuName>Hello, {username}!</MenuName>
-        <Links to="/profile">
-          <MenuItem>
-            <svg
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                clipRule="evenodd"
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
-              />
-            </svg>
-            <h1>Profile</h1>
-          </MenuItem>
-        </Links>
         <Links to="/">
           <MenuItem>
             <svg
@@ -116,6 +131,75 @@ export default function Layout() {
             <h1>Home</h1>
           </MenuItem>
         </Links>
+        <Links to="/profile">
+          <MenuItem>
+            <svg
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                clipRule="evenodd"
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+              />
+            </svg>
+            <h1>Profile</h1>
+          </MenuItem>
+        </Links>
+        <MenuItem onClick={onClick}>
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              clipRule="evenodd"
+              fillRule="evenodd"
+              d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+            />
+          </svg>
+          <h1>Explore</h1>
+        </MenuItem>
+        <MenuItem onClick={onClick}>
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              clipRule="evenodd"
+              fillRule="evenodd"
+              d="M10 2a6 6 0 00-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 00.515 1.076 32.91 32.91 0 003.256.508 3.5 3.5 0 006.972 0 32.903 32.903 0 003.256-.508.75.75 0 00.515-1.076A11.448 11.448 0 0116 8a6 6 0 00-6-6zM8.05 14.943a33.54 33.54 0 003.9 0 2 2 0 01-3.9 0z"
+            />
+          </svg>
+          <h1>Notice</h1>
+        </MenuItem>
+        <MenuItem onClick={onClick}>
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
+          </svg>
+          <h1>Liked</h1>
+        </MenuItem>
+        <MenuItem onClick={onClick}>
+          <svg
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+          </svg>
+          <h1>More</h1>
+        </MenuItem>
         <MenuItem onClick={onLogOut} className="log-out">
           <svg
             fill="currentColor"

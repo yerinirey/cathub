@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import ProtectedRoute from "./components/protected-route";
-import { Img, Logo } from "./components/auth-components";
+import { Img, Logo, TopBar } from "./components/auth-components";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +57,7 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 `;
 
 function App() {
@@ -70,10 +71,12 @@ function App() {
   }, []);
   return (
     <Wrapper>
-      <Logo>
-        <Img src="/github-logo.svg" />
-        Cathub
-      </Logo>
+      <TopBar>
+        <Logo>
+          <Img src="/github-logo.svg" />
+          Cathub
+        </Logo>
+      </TopBar>
       <GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>

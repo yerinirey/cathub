@@ -26,6 +26,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   overflow: scroll;
   -ms-overflow-style: none;
+  scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
   }

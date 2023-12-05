@@ -7,3 +7,4 @@ const COLORS = {
   sidebar: "181D21",
   sub_button: "2C333A",
 };
+export default COLORS;

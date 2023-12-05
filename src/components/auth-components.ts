@@ -112,6 +112,8 @@ export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 1;
 `;
 
 export const Logo = styled.div`
@@ -126,4 +128,12 @@ export const Logo = styled.div`
   gap: 10px;
   font-size: 28px;
   font-weight: 600;
+`;
+
+export const TopBar = styled.div`
+  width: 100%;
+  position: fixed;
+  height: 70px;
+  background-color: #181d21;
+  border-bottom: 2px solid #24292e;
 `;
