@@ -7,36 +7,61 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   margin-top: 40px;
+  position: fixed;
+  width: 40vw;
+  height: 540px;
+  background-color: #23292e;
+  border-radius: 18px;
 `;
 
+const Name = styled.div`
+  font-size: 20px;
+  width: 94%;
+  font-weight: 600;
+`;
 const TextArea = styled.textarea`
+  margin-top: 20px;
   border: 2px solid white;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 4px 4px 18px 18px;
   font-size: 16px;
   color: white;
-  background-color: black;
-  width: 100%;
+  background-color: #141414;
+  width: 94%;
+  height: 370px;
   resize: none;
+  outline: none;
+  border: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   &::placeholder {
     font-size: 16px;
   }
-  &:focus {
-    outline: none;
-    border-color: tomato;
-  }
+`;
+
+const BtnWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 94%;
+  justify-content: space-between;
 `;
 
 const AttachFileButton = styled.label`
-  padding: 10px 0px;
-  color: blue;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid blue;
+  background-color: #5856d6;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    opacity: 0.8;
+  }
 `;
 
 const AttachFileInput = styled.input`
@@ -44,11 +69,11 @@ const AttachFileInput = styled.input`
 `;
 
 const SubmitBtn = styled.input`
-  background-color: green;
+  background-color: #83ab5d;
   color: white;
   border: none;
-  padding: 10px 0px;
-  border-radius: 20px;
+  padding: 10px 24px;
+  border-radius: 18px;
   font-size: 16px;
   cursor: pointer;
   &:hover,
@@ -61,7 +86,7 @@ export default function PostTweetForm() {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState("");
   const [file, setFile] = useState<File | null>(null);
-
+  const user = auth.currentUser;
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
@@ -107,6 +132,7 @@ export default function PostTweetForm() {
   };
   return (
     <Form onSubmit={onSubmit}>
+      <Name>{user?.displayName ? user.displayName : "Annonymous"}</Name>
       <TextArea
         required
         rows={5}
@@ -115,19 +141,18 @@ export default function PostTweetForm() {
         value={tweet}
         placeholder="What is happening?"
       />
-      <AttachFileButton htmlFor="file">
-        {file ? "Photo added" : "Add Photo"}
-      </AttachFileButton>
-      <AttachFileInput
-        onChange={onFileChange}
-        type="file"
-        id="file"
-        accept="image/*"
-      />
-      <SubmitBtn
-        type="submit"
-        value={isLoading ? "Loading ..." : "Post Tweet"}
-      />
+      <BtnWrapper>
+        <AttachFileButton htmlFor="file">
+          {file ? "Photo added" : "Add Photo"}
+        </AttachFileButton>
+        <AttachFileInput
+          onChange={onFileChange}
+          type="file"
+          id="file"
+          accept="image/*"
+        />
+        <SubmitBtn type="submit" value={isLoading ? "Loading ..." : "Post"} />
+      </BtnWrapper>
     </Form>
   );
 }

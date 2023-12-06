@@ -66,6 +66,9 @@ const Right = styled.div`
   border: 1px solid blue;
   width: 20vw;
 `;
+
+const Form = styled.div``;
+
 export const Toast = styled.div`
   position: fixed;
   display: flex;
@@ -86,6 +89,8 @@ export const Toast = styled.div`
     font-weight: 500;
   }
 `;
+
+export const ToastText = styled.div``;
 
 export default function Layout() {
   const [toast, setToast] = useState(false);
@@ -110,7 +115,7 @@ export default function Layout() {
   return (
     <Wrapper>
       <Toast className={toast ? "" : "hidden"}>
-        <p>Not Supported Yet!</p>
+        <ToastText>Not Supported Yet!</ToastText>
       </Toast>
       <Menu>
         <MenuName>Hello, {username}!</MenuName>
@@ -222,7 +227,9 @@ export default function Layout() {
         </MenuItem>
       </Menu>
       <Outlet />
-      <Right></Right>
+      <Right>
+        <Form></Form>
+      </Right>
     </Wrapper>
   );
 }

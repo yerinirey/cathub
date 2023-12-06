@@ -51,6 +51,10 @@ const GlobalStyles = createGlobalStyle`
     color:#d1d2d3;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
+  .catLogo {
+    width:150%;
+    height: 120%;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -73,7 +77,7 @@ function App() {
     <Wrapper>
       <TopBar>
         <Logo>
-          <Img src="/github-logo.svg" />
+          <Img className="catLogo" src="/cathub-logo.svg" />
           Cathub
         </Logo>
       </TopBar>

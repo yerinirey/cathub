@@ -6,5 +6,6 @@ const COLORS = {
   background: "1A1F23",
   sidebar: "181D21",
   sub_button: "2C333A",
+  red: "AB615D",
 };
 export default COLORS;
