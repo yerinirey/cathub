@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
 import { useState } from "react";
+import YouTube, { YouTubePlayer } from "react-youtube";
 
 const Wrapper = styled.div`
   display: flex;
@@ -63,12 +64,52 @@ const MenuName = styled.div`
 `;
 
 const Right = styled.div`
-  border: 1px solid blue;
   width: 20vw;
+  display: grid;
+  grid-template-rows: 2fr 3fr 2fr;
+  margin-top: 40px;
+  gap: 10px;
 `;
 
 const Form = styled.div``;
 
+const FormTitle = styled.div`
+  font-size: 34px;
+  font-weight: 600;
+  margin-bottom: 10px;
+`;
+
+const Container = styled.div`
+  background-color: #23292e;
+  width: 90%;
+  height: 80%;
+  border-radius: 4px 4px 18px 18px;
+  padding: 20px;
+  gap: 10px;
+  &.trend {
+    height: 60%;
+  }
+`;
+const TipHead = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  color: #5856d6;
+  margin-bottom: 20px;
+`;
+const TipText = styled.div`
+  font-size: 20px;
+  font-weight: 400;
+  color: #d1d2d3;
+`;
+
+const Trend = styled.div`
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 20px;
+  line-height: 1.5;
+  &.more {
+    float: right;
+  }
+`;
 export const Toast = styled.div`
   position: fixed;
   display: flex;
@@ -93,6 +134,18 @@ export const Toast = styled.div`
 export const ToastText = styled.div``;
 
 export default function Layout() {
+  const keys = [
+    "Po098TRdOn4",
+    "agJ0CvXXNRo",
+    "LDQhgqLwcRg",
+    "5WqLjXTuvyU",
+    "y0sF5xhGreA",
+    "aSMVoKeEOsE",
+    "XM1NTfC-f08",
+    "wE8s993ZV-8",
+  ];
+  const key = keys[Math.floor(Math.random() * keys.length)];
+
   const [toast, setToast] = useState(false);
   const navigate = useNavigate();
   const username = auth.currentUser?.displayName
@@ -228,7 +281,54 @@ export default function Layout() {
       </Menu>
       <Outlet />
       <Right>
-        <Form></Form>
+        <Form>
+          <FormTitle>Today's Video</FormTitle>
+          <YouTube
+            videoId={key}
+            opts={{
+              width: "90%",
+              height: "300px",
+              playerVars: {
+                autoPlay: 1,
+                rel: 0,
+                modestbranding: 1,
+              },
+            }}
+            onReady={(e) => {
+              e.target.setVolume(10);
+            }}
+            onEnd={(e) => {
+              e.target.stopVideo(0);
+            }}
+          ></YouTube>
+        </Form>
+        <Form>
+          <FormTitle>Today's Tip</FormTitle>
+          <Container>
+            <TipHead>
+              Cats Love Chur<TipText>tips tips tips</TipText>
+            </TipHead>
+            <TipHead>
+              Cats Love Chur<TipText>tips tips tips</TipText>
+            </TipHead>
+            <TipHead>
+              Cats Love Chur<TipText>tips tips tips</TipText>
+            </TipHead>
+            <TipHead>
+              Cats Love Chur<TipText>tips tips tips</TipText>
+            </TipHead>
+          </Container>
+        </Form>
+        <Form>
+          <FormTitle>Trend</FormTitle>
+          <Container className="trend">
+            <Trend>
+              #tuxedo #sphinx #abyssinian #ragdoll #bengal #savannah
+              #russianblue #FelisCatus
+            </Trend>
+            <Trend className="more">...and more!</Trend>
+          </Container>
+        </Form>
       </Right>
     </Wrapper>
   );
