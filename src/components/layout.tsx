@@ -65,10 +65,10 @@ const MenuName = styled.div`
 
 const Right = styled.div`
   width: 20vw;
-  display: grid;
-  grid-template-rows: 2fr 3fr 2fr;
+  display: flex;
+  flex-direction: column;
   margin-top: 40px;
-  gap: 10px;
+  gap: 30px;
 `;
 
 const Form = styled.div``;
@@ -105,6 +105,7 @@ const TipText = styled.div`
 const Trend = styled.div`
   color: rgba(255, 255, 255, 0.5);
   font-size: 20px;
+  height: 100px;
   line-height: 1.5;
   &.more {
     float: right;
@@ -139,7 +140,6 @@ export default function Layout() {
     "agJ0CvXXNRo",
     "LDQhgqLwcRg",
     "5WqLjXTuvyU",
-    "y0sF5xhGreA",
     "aSMVoKeEOsE",
     "XM1NTfC-f08",
     "wE8s993ZV-8",

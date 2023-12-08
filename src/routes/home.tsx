@@ -73,9 +73,8 @@ export default function Home() {
     setModal(true);
   };
 
-  const onCancel = () => {
-    const ok = confirm("Close Form");
-    if (ok) setModal(false);
+  const onCloseModal = () => {
+    setModal(false);
   };
 
   return (
@@ -86,8 +85,8 @@ export default function Home() {
       </HeadWrapper>
       {modal ? (
         <Modal>
-          <ModalOverlay onClick={onCancel}></ModalOverlay>
-          <PostTweetForm />
+          <ModalOverlay></ModalOverlay>
+          <PostTweetForm onCloseModal={onCloseModal} />
         </Modal>
       ) : null}
       <Timeline />

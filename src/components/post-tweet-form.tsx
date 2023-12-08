@@ -81,8 +81,26 @@ const SubmitBtn = styled.input`
     opacity: 0.8;
   }
 `;
+const FormHead = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 94%;
+`;
 
-export default function PostTweetForm() {
+const CloseButton = styled.div`
+  width: 28px;
+  height: 28px;
+  background-color: #141414;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export default function PostTweetForm({ onCloseModal }: any) {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -98,6 +116,14 @@ export default function PostTweetForm() {
       }
       setFile(files[0]);
     }
+  };
+  const onClose = () => {
+    if (tweet !== "" || file !== null) {
+      const ok = confirm("Are you sure you want to close the form?");
+      if (ok) onCloseModal();
+      else return;
+    }
+    onCloseModal();
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,11 +154,16 @@ export default function PostTweetForm() {
       console.log(e);
     } finally {
       setLoading(false);
+      onCloseModal();
     }
   };
   return (
     <Form onSubmit={onSubmit}>
-      <Name>{user?.displayName ? user.displayName : "Annonymous"}</Name>
+      <FormHead>
+        <Name>{user?.displayName ? user.displayName : "Annonymous"}</Name>
+        <CloseButton onClick={onClose}>✖</CloseButton>
+      </FormHead>
+
       <TextArea
         required
         rows={5}
