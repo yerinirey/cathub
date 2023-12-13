@@ -2,7 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
 import { useState } from "react";
-import YouTube, { YouTubePlayer } from "react-youtube";
+import YouTube from "react-youtube";
 
 const Wrapper = styled.div`
   display: flex;

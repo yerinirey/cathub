@@ -101,7 +101,7 @@ export default function CreateAccount() {
         </Form>
       </LeftWrapper>
       <ImageBox>
-        <Img alt="src/image/Ggomi.jpg" src="src/image/Ggomi.jpg" />
+        <Img src="ggomi.png" />
       </ImageBox>
     </Wrapper>
   );
